@@ -1,0 +1,514 @@
+/* General Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Arial", sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Main Container */
+.main-container {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 30px;
+}
+
+/* Card Container */
+.card-container {
+  perspective: 1500px;
+  width: 65%;
+  height: 500px;
+}
+
+/* Customizer Container */
+.customizer-container {
+  width: 35%;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  height: 500px;
+  overflow-y: auto;
+}
+
+/* Card Styles */
+.card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 1s;
+}
+
+.card.open {
+  transform: rotateY(180deg);
+}
+
+.card-front,
+.card-inside {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  padding: 30px;
+}
+
+.card-front {
+  background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.card-inside {
+  background: white;
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 50px;
+  backface-visibility: hidden;
+}
+
+.card.open .card-inside.capture-mode {
+  transform: none !important; /* reset flip when downloading */
+}
+/* Close Button */
+.close-button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  background-color: #ff6b6b;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s;
+}
+
+.close-button:hover {
+  background-color: #ff5252;
+  transform: scale(1.1);
+}
+
+/* Front Card Elements */
+.front-title {
+  font-size: 3rem;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  margin-bottom: 20px;
+  animation: bounce 2s infinite;
+}
+
+.front-subtitle {
+  color: #fff;
+  font-size: 1.2rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  animation: pulse 1.5s infinite;
+}
+
+/* Inside Card Elements */
+.inside-title {
+  font-size: 2.5rem;
+  color: #ff6b6b;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.message {
+  font-size: 1.2rem;
+  color: #555;
+  text-align: center;
+  max-width: 80%;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+/* Balloon Styles */
+.balloon {
+  position: absolute;
+  width: 60px;
+  height: 70px;
+  border-radius: 50%;
+  animation: float 5s infinite ease-in-out;
+  box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+}
+
+.balloon-1 {
+  background-color: #ff6b6b;
+  top: 63%;
+  left: 20%;
+  animation-delay: 0s;
+}
+
+.balloon-2 {
+  background-color: #48dbfb;
+  top: 15%;
+  right: 20%;
+  animation-delay: 1s;
+}
+
+.balloon-3 {
+  background-color: #1dd1a1;
+  top: 30%;
+  left: 10%;
+  animation-delay: 2s;
+}
+
+.balloon-4 {
+  background-color: #feca57;
+  top: 40%;
+  right: 10%;
+  animation-delay: 3s;
+}
+/* Balloon string (attach to each balloon) */
+.balloon::after {
+  content: "";
+  position: absolute;
+  top: 100%; /* start at balloon bottom */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 70px; /* length of the string */
+  background-color: rgba(0, 0, 0, 0.12);
+  border-radius: 2px;
+  z-index: -1; /* behind the balloon */
+}
+
+/* optional - make the clone visually neutral while capturing */
+.capture-clone {
+  box-shadow: none !important;
+  transition: none !important;
+}
+
+/* Cake Styles */
+.cake {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin-bottom: 40px;
+}
+
+.cake-base {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+  background-color: #ff9a9e;
+  border-radius: 10px;
+}
+
+.cake-middle {
+  position: absolute;
+  bottom: 40px;
+  width: 90%;
+  height: 30px;
+  left: 5%;
+  background-color: #fad0c4;
+  border-radius: 5px;
+}
+
+.cake-top {
+  position: absolute;
+  bottom: 70px;
+  width: 80%;
+  height: 25px;
+  left: 10%;
+  background-color: #ff9a9e;
+  border-radius: 5px;
+}
+
+.candle {
+  position: absolute;
+  bottom: 95px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 30px;
+  background-color: #fff;
+  border-radius: 4px;
+}
+
+.flame {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 15px;
+  height: 20px;
+  background: linear-gradient(to top, #ff9a9e, #ffcc80);
+  border-radius: 50% 50% 20% 20%;
+  animation: flicker 0.5s infinite alternate;
+  cursor: pointer;
+}
+
+/* Gift Box Styles */
+.gift-box {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin: 20px 0;
+}
+
+.gift-box-bottom {
+  position: absolute;
+  width: 100%;
+  height: 80%;
+  bottom: 0;
+  background-color: #ff6b6b;
+  border-radius: 5px;
+}
+
+.gift-box-top {
+  position: absolute;
+  width: 110%;
+  height: 30%;
+  top: 0;
+  left: -5%;
+  background-color: #ff9a9e;
+  border-radius: 5px;
+}
+
+.gift-box-ribbon {
+  position: absolute;
+  width: 20%;
+  height: 100%;
+  left: 40%;
+  background-color: #feca57;
+  z-index: 1;
+}
+
+/* Confetti Styles */
+.confetti-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Customize Section */
+.customize-section h3 {
+  font-size: 1.8rem;
+  color: #ff6b6b;
+  margin-bottom: 20px;
+  text-align: center;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 15px;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.control-group label {
+  font-weight: 600;
+  color: #555;
+  font-size: 1rem;
+}
+
+.control-group input,
+.control-group textarea,
+.control-group select {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+  background-color: #f9f9f9;
+}
+
+.control-group input:focus,
+.control-group textarea:focus,
+.control-group select:focus {
+  border-color: #ff6b6b;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.2);
+}
+
+.control-group textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.button-group {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.button-group button {
+  flex: 1;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 1rem;
+}
+
+#update-card {
+  background-color: #ff6b6b;
+  color: white;
+}
+
+#update-card:hover {
+  background-color: #ff5252;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+}
+
+#download-card {
+  background-color: #4caf50;
+  color: white;
+}
+
+#download-card:hover {
+  background-color: #45a049;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+}
+
+/* Color Themes */
+.blue-theme .card-front {
+  background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.blue-theme .inside-title {
+  color: #4facfe;
+}
+
+.green-theme .card-front {
+  background: linear-gradient(45deg, #43e97b 0%, #38f9d7 100%);
+}
+
+.green-theme .inside-title {
+  color: #43e97b;
+}
+
+.pink-theme .card-front {
+  background: linear-gradient(45deg, #ff6ec4 0%, #7873f5 100%);
+}
+
+.pink-theme .inside-title {
+  color: #ff6ec4;
+}
+
+/* Animations */
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes flicker {
+  0% {
+    transform: translateX(-50%) scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateX(-50%) scale(1.1);
+    opacity: 1;
+  }
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(500px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .main-container {
+    flex-direction: column;
+  }
+
+  .card-container,
+  .customizer-container {
+    width: 100%;
+  }
+
+  .card-container {
+    height: 400px;
+  }
+
+  .front-title {
+    font-size: 2rem;
+  }
+
+  .inside-title {
+    font-size: 1.8rem;
+  }
+
+  .message {
+    font-size: 1rem;
+  }
+
+  .cake {
+    width: 80px;
+    height: 80px;
+  }
+}
