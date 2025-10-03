@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Birthday E-Card</title>
+    <title>Multi-Occasion E-Card</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <link rel="stylesheet" href="styles.css" />
   </head>
@@ -12,21 +12,92 @@
       <div class="card-container">
         <div class="card">
           <div class="card-front">
-            <div class="balloon balloon-1"></div>
-            <div class="balloon balloon-2"></div>
-            <div class="balloon balloon-3"></div>
-            <div class="balloon balloon-4"></div>
-            <div class="cake">
-              <div class="cake-base"></div>
-              <div class="cake-middle"></div>
-              <div class="cake-top"></div>
-              <div class="candle">
-                <div class="flame"></div>
+            <!-- Birthday Elements -->
+            <div class="occasion-elements birthday-elements">
+              <div class="balloon balloon-1"></div>
+              <div class="balloon balloon-2"></div>
+              <div class="balloon balloon-3"></div>
+              <div class="balloon balloon-4"></div>
+              <div class="cake">
+                <div class="cake-base"></div>
+                <div class="cake-middle"></div>
+                <div class="cake-top"></div>
+                <div class="candle">
+                  <div class="flame"></div>
+                </div>
               </div>
             </div>
+
+            <!-- Christmas Elements -->
+            <div class="occasion-elements christmas-elements hidden">
+              <div class="christmas-tree">
+                <div class="tree-top"></div>
+                <div class="tree-middle"></div>
+                <div class="tree-bottom"></div>
+                <div class="tree-trunk"></div>
+                <div class="star"></div>
+              </div>
+              <div class="snowflake snowflake-1">❄</div>
+              <div class="snowflake snowflake-2">❄</div>
+              <div class="snowflake snowflake-3">❄</div>
+              <div class="snowflake snowflake-4">❄</div>
+              <div class="snowflake snowflake-5">❄</div>
+            </div>
+
+            <!-- Deepavali Elements -->
+            <div class="occasion-elements deepavali-elements hidden">
+              <div class="diya diya-1">
+                <div class="diya-base"></div>
+                <div class="diya-flame"></div>
+              </div>
+              <div class="diya diya-2">
+                <div class="diya-base"></div>
+                <div class="diya-flame"></div>
+              </div>
+              <div class="diya diya-3">
+                <div class="diya-base"></div>
+                <div class="diya-flame"></div>
+              </div>
+              <div class="rangoli"></div>
+            </div>
+
+            <!-- Chinese New Year Elements -->
+            <div class="occasion-elements cny-elements hidden">
+              <div class="lantern lantern-1">
+                <div class="lantern-top"></div>
+                <div class="lantern-body"></div>
+                <div class="lantern-bottom"></div>
+              </div>
+              <div class="lantern lantern-2">
+                <div class="lantern-top"></div>
+                <div class="lantern-body"></div>
+                <div class="lantern-bottom"></div>
+              </div>
+              <div class="coin coin-1">福</div>
+              <div class="coin coin-2">福</div>
+            </div>
+
+            <!-- Hari Raya Elements -->
+            <div class="occasion-elements raya-elements hidden">
+              <div class="mosque">
+                <div class="dome"></div>
+                <div class="dome-top"></div>
+                <div class="minaret minaret-left"></div>
+                <div class="minaret minaret-right"></div>
+                <div class="mosque-base"></div>
+              </div>
+              <div class="star-crescent">
+                <div class="crescent"></div>
+                <div class="star-icon">★</div>
+              </div>
+              <div class="ketupat ketupat-1"></div>
+              <div class="ketupat ketupat-2"></div>
+            </div>
+
             <h1 class="front-title">Happy Birthday!</h1>
             <p class="front-subtitle">Click to open your card</p>
           </div>
+
           <div class="card-inside">
             <div class="close-button">&times;</div>
             <h2 class="inside-title">Wishing You a Happy Birthday!</h2>
@@ -34,11 +105,6 @@
               On your special day, may all your dreams and wishes come true.
               Enjoy every moment of your celebration!
             </p>
-            <div class="gift-box">
-              <div class="gift-box-top"></div>
-              <div class="gift-box-bottom"></div>
-              <div class="gift-box-ribbon"></div>
-            </div>
             <div class="confetti-container"></div>
           </div>
         </div>
@@ -49,6 +115,16 @@
           <h3>Customize Your Card</h3>
           <div class="controls">
             <div class="control-group">
+              <label for="occasion-select">Occasion:</label>
+              <select id="occasion-select">
+                <option value="birthday">Birthday</option>
+                <option value="christmas">Christmas</option>
+                <option value="deepavali">Deepavali</option>
+                <option value="cny">Chinese New Year</option>
+                <option value="raya">Hari Raya</option>
+              </select>
+            </div>
+            <div class="control-group">
               <label for="recipient-name">Recipient Name:</label>
               <input type="text" id="recipient-name" placeholder="Enter name" />
             </div>
@@ -58,15 +134,6 @@
                 id="message-text"
                 placeholder="Write your message"
               ></textarea>
-            </div>
-            <div class="control-group">
-              <label for="color-theme">Color Theme:</label>
-              <select id="color-theme">
-                <option value="default">Default (Pink)</option>
-                <option value="blue">Blue</option>
-                <option value="pink">Purple Pink</option>
-                <option value="green">Green</option>
-              </select>
             </div>
             <div class="button-group">
               <button id="update-card">Update Card</button>

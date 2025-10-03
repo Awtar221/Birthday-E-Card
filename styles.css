@@ -15,6 +15,10 @@ body {
   padding: 20px;
 }
 
+.hidden {
+  display: none !important;
+}
+
 /* Main Container */
 .main-container {
   width: 100%;
@@ -50,6 +54,8 @@ body {
   position: relative;
   transform-style: preserve-3d;
   transition: transform 1s;
+  cursor: pointer;
+  transform-style: preserve-3d;
 }
 
 .card.open {
@@ -66,6 +72,8 @@ body {
   overflow: hidden;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
   padding: 30px;
+  top: 0;
+  left: 0;
 }
 
 .card-front {
@@ -75,6 +83,7 @@ body {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  position: relative;
 }
 
 .card-inside {
@@ -83,13 +92,31 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   padding-top: 50px;
   backface-visibility: hidden;
 }
 
-.card.open .card-inside.capture-mode {
-  transform: none !important; /* reset flip when downloading */
+.inside-content{
+  text-align: center;
 }
+/* Occasion Themes */
+.card.christmas-theme .card-front {
+  background: linear-gradient(45deg, #d3dcf5 0%, #6dccf1 50%, #93c5fd 100%);
+}
+
+.card.deepavali-theme .card-front {
+  background: linear-gradient(45deg, #7c2d12 0%, #ea580c 50%, #fbbf24 100%);
+}
+
+.card.cny-theme .card-front {
+  background: linear-gradient(45deg, #dc2626 0%, #ef4444 50%, #fbbf24 100%);
+}
+
+.card.raya-theme .card-front {
+  background: linear-gradient(45deg, #065f46 0%, #10b981 50%, #d1fae5 100%);
+}
+
 /* Close Button */
 .close-button {
   position: absolute;
@@ -120,6 +147,7 @@ body {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   margin-bottom: 20px;
   animation: bounce 2s infinite;
+  z-index: 10;
 }
 
 .front-subtitle {
@@ -127,6 +155,7 @@ body {
   font-size: 1.2rem;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
   animation: pulse 1.5s infinite;
+  z-index: 10;
 }
 
 /* Inside Card Elements */
@@ -135,6 +164,22 @@ body {
   color: #ff6b6b;
   margin-bottom: 20px;
   text-align: center;
+}
+
+.card.christmas-theme .inside-title {
+  color: #1e3a8a;
+}
+
+.card.deepavali-theme .inside-title {
+  color: #ea580c;
+}
+
+.card.cny-theme .inside-title {
+  color: #dc2626;
+}
+
+.card.raya-theme .inside-title {
+  color: #065f46;
 }
 
 .message {
@@ -146,14 +191,18 @@ body {
   margin-bottom: 30px;
 }
 
-/* Balloon Styles */
+.inside-decoration {
+  margin: 20px 0;
+}
+
+/* =============== BIRTHDAY ELEMENTS =============== */
 .balloon {
   position: absolute;
   width: 60px;
   height: 70px;
   border-radius: 50%;
   animation: float 5s infinite ease-in-out;
-  box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .balloon-1 {
@@ -183,27 +232,20 @@ body {
   right: 10%;
   animation-delay: 3s;
 }
-/* Balloon string (attach to each balloon) */
+
 .balloon::after {
   content: "";
   position: absolute;
-  top: 100%; /* start at balloon bottom */
+  top: 100%;
   left: 50%;
   transform: translateX(-50%);
   width: 2px;
-  height: 70px; /* length of the string */
+  height: 70px;
   background-color: rgba(0, 0, 0, 0.12);
   border-radius: 2px;
-  z-index: -1; /* behind the balloon */
+  z-index: -1;
 }
 
-/* optional - make the clone visually neutral while capturing */
-.capture-clone {
-  box-shadow: none !important;
-  transition: none !important;
-}
-
-/* Cake Styles */
 .cake {
   position: relative;
   width: 120px;
@@ -262,6 +304,373 @@ body {
   border-radius: 50% 50% 20% 20%;
   animation: flicker 0.5s infinite alternate;
   cursor: pointer;
+}
+
+/* =============== CHRISTMAS ELEMENTS =============== */
+.christmas-tree {
+  position: relative;
+  width: 150px;
+  height: 180px;
+  margin-bottom: 40px;
+}
+
+.tree-top {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 40px solid transparent;
+  border-right: 40px solid transparent;
+  border-bottom: 60px solid #10b981;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 20px;
+}
+
+.tree-middle {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  border-bottom: 70px solid #059669;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 60px;
+}
+
+.tree-bottom {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 60px solid transparent;
+  border-right: 60px solid transparent;
+  border-bottom: 80px solid #047857;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 100px;
+}
+
+.tree-trunk {
+  position: absolute;
+  width: 20px;
+  height: 30px;
+  background-color: #78350f;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+  border-radius: 3px;
+}
+
+.star {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background-color: #fbbf24;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 0;
+  clip-path: polygon(
+    50% 0%,
+    61% 35%,
+    98% 35%,
+    68% 57%,
+    79% 91%,
+    50% 70%,
+    21% 91%,
+    32% 57%,
+    2% 35%,
+    39% 35%
+  );
+  animation: twinkle 1.5s infinite;
+}
+
+.snowflake {
+  position: absolute;
+  color: white;
+  font-size: 30px;
+  animation: snowfall 4s infinite linear;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.snowflake-1 {
+  left: 10%;
+  top: 10%;
+  animation-delay: 0s;
+}
+
+.snowflake-2 {
+  left: 30%;
+  top: 20%;
+  animation-delay: 1s;
+}
+
+.snowflake-3 {
+  right: 20%;
+  top: 15%;
+  animation-delay: 2s;
+}
+
+.snowflake-4 {
+  right: 10%;
+  top: 25%;
+  animation-delay: 1.5s;
+}
+
+.snowflake-5 {
+  left: 50%;
+  top: 5%;
+  animation-delay: 0.5s;
+}
+
+/* =============== DEEPAVALI ELEMENTS =============== */
+.diya {
+  position: absolute;
+  width: 50px;
+  height: 40px;
+}
+
+.diya-1 {
+  left: 15%;
+  top: 60%;
+}
+
+.diya-2 {
+  left: 50%;
+  top: 70%;
+  transform: translateX(-50%);
+}
+
+.diya-3 {
+  right: 15%;
+  top: 60%;
+}
+
+.diya-base {
+  position: absolute;
+  width: 100%;
+  height: 60%;
+  bottom: 0;
+  background: linear-gradient(to bottom, #f59e0b, #d97706);
+  border-radius: 0 0 50% 50%;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+.diya-flame {
+  position: absolute;
+  width: 20px;
+  height: 25px;
+  background: linear-gradient(to top, #f59e0b, #fbbf24, #fef3c7);
+  border-radius: 50% 50% 20% 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -15px;
+  animation: flicker 0.6s infinite alternate;
+}
+
+.rangoli {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    circle,
+    #fbbf24 0%,
+    #f59e0b 20%,
+    #dc2626 40%,
+    #ec4899 60%,
+    #a855f7 80%,
+    #3b82f6 100%
+  );
+  border-radius: 50%;
+  animation: rotate 10s infinite linear;
+  opacity: 0.7;
+}
+
+/* =============== CHINESE NEW YEAR ELEMENTS =============== */
+.lantern {
+  position: absolute;
+  width: 60px;
+  height: 80px;
+}
+
+.lantern-1 {
+  left: 20%;
+  top: 15%;
+  animation: swing 3s infinite ease-in-out;
+}
+
+.lantern-2 {
+  right: 20%;
+  top: 15%;
+  animation: swing 3s infinite ease-in-out 0.5s;
+}
+
+.lantern-top {
+  width: 100%;
+  height: 15%;
+  background-color: #fbbf24;
+  border-radius: 10px 10px 0 0;
+}
+
+.lantern-body {
+  width: 100%;
+  height: 70%;
+  background: linear-gradient(to bottom, #dc2626, #991b1b);
+  border-radius: 10px;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.lantern-bottom {
+  width: 100%;
+  height: 15%;
+  background-color: #fbbf24;
+  border-radius: 0 0 10px 10px;
+}
+
+.coin {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  color: #dc2626;
+  font-weight: bold;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  animation: float 4s infinite ease-in-out;
+}
+
+.coin-1 {
+  left: 15%;
+  bottom: 25%;
+  animation-delay: 0s;
+}
+
+.coin-2 {
+  right: 15%;
+  bottom: 25%;
+  animation-delay: 1s;
+}
+
+/* =============== HARI RAYA ELEMENTS =============== */
+.mosque {
+  position: relative;
+  width: 160px;
+  height: 150px;
+  margin-bottom: 40px;
+}
+
+.mosque-base {
+  position: absolute;
+  width: 120px;
+  height: 60px;
+  background-color: #10b981;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 5px;
+}
+
+.dome {
+  position: absolute;
+  width: 80px;
+  height: 40px;
+  background-color: #fbbf24;
+  border-radius: 50% 50% 0 0;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.dome-top {
+  position: absolute;
+  width: 10px;
+  height: 25px;
+  background-color: #f59e0b;
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 5px;
+}
+
+.minaret {
+  position: absolute;
+  width: 15px;
+  height: 80px;
+  background-color: #059669;
+  bottom: 0;
+  border-radius: 3px;
+}
+
+.minaret-left {
+  left: 10px;
+}
+
+.minaret-right {
+  right: 10px;
+}
+
+.minaret::before {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 15px;
+  background-color: #fbbf24;
+  border-radius: 50% 50% 0 0;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.star-crescent {
+  position: absolute;
+  right: 15%;
+  top: 15%;
+  width: 60px;
+  height: 60px;
+  animation: twinkle 2s infinite;
+}
+
+.crescent {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-shadow: inset -10px 0 0 0 #fbbf24;
+  transform: rotate(-45deg);
+}
+
+.star-icon {
+  position: absolute;
+  font-size: 25px;
+  color: #fbbf24;
+  top: 5px;
+}
+
+.ketupat {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(45deg, #10b981, #059669);
+  transform: rotate(45deg);
+  animation: float 4s infinite ease-in-out;
+}
+
+.ketupat-1 {
+  left: 15%;
+  bottom: 25%;
+  animation-delay: 0s;
+}
+
+.ketupat-2 {
+  left: 20%;
+  bottom: 35%;
+  animation-delay: 1s;
 }
 
 /* Gift Box Styles */
@@ -402,31 +811,6 @@ body {
   box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
 }
 
-/* Color Themes */
-.blue-theme .card-front {
-  background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
-}
-
-.blue-theme .inside-title {
-  color: #4facfe;
-}
-
-.green-theme .card-front {
-  background: linear-gradient(45deg, #43e97b 0%, #38f9d7 100%);
-}
-
-.green-theme .inside-title {
-  color: #43e97b;
-}
-
-.pink-theme .card-front {
-  background: linear-gradient(45deg, #ff6ec4 0%, #7873f5 100%);
-}
-
-.pink-theme .inside-title {
-  color: #ff6ec4;
-}
-
 /* Animations */
 @keyframes bounce {
   0%,
@@ -480,6 +864,48 @@ body {
   }
 }
 
+@keyframes snowfall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(400px) rotate(360deg);
+    opacity: 0.3;
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.7;
+  }
+}
+
+@keyframes swing {
+  0%,
+  100% {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: translateX(-50%) rotate(0deg);
+  }
+  100% {
+    transform: translateX(-50%) rotate(360deg);
+  }
+}
+
 /* Responsive Styles */
 @media (max-width: 768px) {
   .main-container {
@@ -507,8 +933,9 @@ body {
     font-size: 1rem;
   }
 
-  .cake {
-    width: 80px;
-    height: 80px;
+  .cake,
+  .christmas-tree,
+  .mosque {
+    transform: scale(0.8);
   }
 }
