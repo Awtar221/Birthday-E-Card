@@ -72,6 +72,8 @@ body {
   overflow: hidden;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
   padding: 30px;
+  top: 0;
+  left: 0;
 }
 
 .card-front {
@@ -90,13 +92,17 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   padding-top: 50px;
   backface-visibility: hidden;
 }
 
+.inside-content{
+  text-align: center;
+}
 /* Occasion Themes */
 .card.christmas-theme .card-front {
-  background: linear-gradient(45deg, #1e3a8a 0%, #3b82f6 50%, #93c5fd 100%);
+  background: linear-gradient(45deg, #d3dcf5 0%, #6dccf1 50%, #93c5fd 100%);
 }
 
 .card.deepavali-theme .card-front {
@@ -643,7 +649,6 @@ body {
   position: absolute;
   font-size: 25px;
   color: #fbbf24;
-  right: 5px;
   top: 5px;
 }
 
