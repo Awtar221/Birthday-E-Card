@@ -45,6 +45,12 @@ body {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   height: 500px;
   overflow-y: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.customizer-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
 
 /* Card Styles */
@@ -97,7 +103,7 @@ body {
   backface-visibility: hidden;
 }
 
-.inside-content {
+.inside-content{
   text-align: center;
 }
 /* Occasion Themes */
@@ -800,32 +806,17 @@ body {
   box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
 }
 
-#download-card {
+#share-card {
   background-color: #4caf50;
   color: white;
 }
 
-#download-card:hover {
+#share-card:hover {
   background-color: #45a049;
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
 }
 
-.copy-link {
-  padding: 12px 20px;
-  background-color: #2196f3;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  white-space: nowrap;
-}
-
-.share-link {
-  flex: 1;
-  background-color: #f0f0f0;
-  cursor: pointer;
-}
 /* Animations */
 @keyframes bounce {
   0%,
