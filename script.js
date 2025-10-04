@@ -242,7 +242,6 @@ function loadFromURL() {
 function createConfetti() {
   confettiContainer.innerHTML = "";
 
-  // Different confetti colors based on occasion
   let colors;
   switch (currentOccasion) {
     case "christmas":

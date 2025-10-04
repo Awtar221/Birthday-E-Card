@@ -103,9 +103,6 @@ body {
   backface-visibility: hidden;
 }
 
-.inside-content{
-  text-align: center;
-}
 /* Occasion Themes */
 .card.christmas-theme .card-front {
   background: linear-gradient(45deg, #d3dcf5 0%, #6dccf1 50%, #93c5fd 100%);
@@ -195,10 +192,6 @@ body {
   max-width: 80%;
   line-height: 1.6;
   margin-bottom: 30px;
-}
-
-.inside-decoration {
-  margin: 20px 0;
 }
 
 /* =============== BIRTHDAY ELEMENTS =============== */
@@ -679,42 +672,6 @@ body {
   animation-delay: 1s;
 }
 
-/* Gift Box Styles */
-.gift-box {
-  position: relative;
-  width: 100px;
-  height: 100px;
-  margin: 20px 0;
-}
-
-.gift-box-bottom {
-  position: absolute;
-  width: 100%;
-  height: 80%;
-  bottom: 0;
-  background-color: #ff6b6b;
-  border-radius: 5px;
-}
-
-.gift-box-top {
-  position: absolute;
-  width: 110%;
-  height: 30%;
-  top: 0;
-  left: -5%;
-  background-color: #ff9a9e;
-  border-radius: 5px;
-}
-
-.gift-box-ribbon {
-  position: absolute;
-  width: 20%;
-  height: 100%;
-  left: 40%;
-  background-color: #feca57;
-  z-index: 1;
-}
-
 /* Confetti Styles */
 .confetti-container {
   position: absolute;
@@ -815,6 +772,17 @@ body {
   background-color: #45a049;
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+}
+
+#copy-link {
+  background-color: #2196F3;
+  color: white;
+}
+
+#copy-link:hover {
+  background-color: #1976D2;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(33, 150, 243, 0.3);
 }
 
 /* Animations */
