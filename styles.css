@@ -97,7 +97,7 @@ body {
   backface-visibility: hidden;
 }
 
-.inside-content{
+.inside-content {
   text-align: center;
 }
 /* Occasion Themes */
@@ -811,6 +811,21 @@ body {
   box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
 }
 
+.copy-link {
+  padding: 12px 20px;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.share-link {
+  flex: 1;
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
 /* Animations */
 @keyframes bounce {
   0%,

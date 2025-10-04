@@ -13,6 +13,12 @@ const closeButton = document.querySelector(".close-button");
 const frontTitle = document.querySelector(".front-title");
 const frontSubtitle = document.querySelector(".front-subtitle");
 
+// Share card elements
+const shareButton = document.getElementById("share-card");
+const shareLinkContainer = document.getElementById("share-link-container");
+const shareLinkInput = document.getElementById("share-link");
+const copyLinkButton = document.getElementById("copy-link");
+
 // Occasion configurations
 const occasions = {
   birthday: {
@@ -181,6 +187,66 @@ downloadButton.addEventListener("click", function () {
   }, 50);
 });
 
+// Share card functionality
+shareButton.addEventListener("click", function () {
+  const recipientName = recipientNameInput.value.trim();
+  const customMessage = messageTextInput.value.trim();
+
+  // Create URL parameters
+  const params = new URLSearchParams();
+  params.set("occasion", currentOccasion);
+  if (recipientName) params.set("name", recipientName);
+  if (customMessage) params.set("message", customMessage);
+
+  // Generate the shareable URL
+  const shareUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+  
+  shareLinkInput.value = shareUrl;
+  shareLinkContainer.style.display = "flex";
+});
+
+// Copy link to clipboard
+copyLinkButton.addEventListener("click", function () {
+  shareLinkInput.select();
+  document.execCommand("copy");
+  
+  // Visual feedback
+  const originalText = copyLinkButton.textContent;
+  copyLinkButton.textContent = "Copied!";
+  copyLinkButton.style.backgroundColor = "#4caf50";
+  
+  setTimeout(() => {
+    copyLinkButton.textContent = originalText;
+    copyLinkButton.style.backgroundColor = "#2196F3";
+  }, 2000);
+});
+
+// Load card data from URL on page load
+function loadFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  
+  if (params.has("occasion")) {
+    const occasion = params.get("occasion");
+    if (occasions[occasion]) {
+      occasionSelect.value = occasion;
+      updateOccasion(occasion);
+    }
+  }
+  
+  if (params.has("name")) {
+    const name = params.get("name");
+    recipientNameInput.value = name;
+    const config = occasions[currentOccasion];
+    insideTitle.textContent = config.insideTitle.replace("!", `, ${name}!`);
+  }
+  
+  if (params.has("message")) {
+    const customMessage = params.get("message");
+    messageTextInput.value = customMessage;
+    message.textContent = customMessage;
+  }
+}
+
 // Create confetti animation
 function createConfetti() {
   confettiContainer.innerHTML = "";
@@ -279,3 +345,4 @@ document.addEventListener("click", function (e) {
 
 // Initialize card on load
 initializeCard();
+loadFromURL();
