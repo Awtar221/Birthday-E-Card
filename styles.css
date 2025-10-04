@@ -109,7 +109,7 @@ body {
 }
 
 .card.deepavali-theme .card-front {
-  background: linear-gradient(45deg, #7c2d12 0%, #ea580c 50%, #fbbf24 100%);
+  background: linear-gradient(45deg, #EC6535 0%, #DD4400 50%, #F3DD43 100%);
 }
 
 .card.cny-theme .card-front {
@@ -349,23 +349,14 @@ body {
   top: 100px;
 }
 
-.tree-trunk {
-  position: absolute;
-  width: 20px;
-  height: 30px;
-  background-color: #78350f;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 0;
-  border-radius: 3px;
-}
+
 
 .star {
   position: absolute;
   width: 30px;
   height: 30px;
   background-color: #fbbf24;
-  left: 50%;
+  left: 40%;
   transform: translateX(-50%);
   top: 0;
   clip-path: polygon(
@@ -466,26 +457,148 @@ body {
   animation: flicker 0.6s infinite alternate;
 }
 
-.rangoli {
-  position: absolute;
-  width: 100px;
-  height: 100px;
-  bottom: 20%;
-  left: 50%;
-  transform: translateX(-50%);
-  background: radial-gradient(
-    circle,
-    #fbbf24 0%,
-    #f59e0b 20%,
-    #dc2626 40%,
-    #ec4899 60%,
-    #a855f7 80%,
-    #3b82f6 100%
-  );
-  border-radius: 50%;
-  animation: rotate 10s infinite linear;
-  opacity: 0.7;
+@keyframes flicker {
+  from { transform: translateX(-50%) scale(1); opacity: 0.9; }
+  to { transform: translateX(-50%) scale(1.1); opacity: 1; }
 }
+
+
+@keyframes glow {
+  from { box-shadow: 0 0 10px #fcd34d; transform: translateX(-50%) scale(1); }
+  to { box-shadow: 0 0 25px #fef3c7; transform: translateX(-50%) scale(1.05); }
+}
+
+/* Hanging Lanterns (visible and glowing) */
+.deepavali-lantern {
+  position: absolute;
+  width: 70px;
+  height: 100px;
+  z-index: 20;
+  animation: sway 3s infinite ease-in-out;
+  filter: drop-shadow(0 0 10px rgba(255, 200, 0, 0.8));
+}
+
+.lantern-left {
+  left: 10%;
+  top: 8%;
+  animation-delay: 0s;
+}
+
+.lantern-right {
+  right: 10%;
+  top: 8%;
+  animation-delay: 1s;
+}
+
+.deepavali-lantern .lantern-top {
+  width: 100%;
+  height: 12%;
+  background-color: #facc15;
+  border-radius: 10px 10px 0 0;
+  border-bottom: 2px solid #b45309;
+}
+
+.deepavali-lantern .lantern-body {
+  width: 100%;
+  height: 70%;
+  background: linear-gradient(to bottom, #fcd34d, #ea580c, #7c2d12);
+  border-radius: 10px;
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.4),
+              0 0 20px rgba(255, 200, 0, 0.9);
+}
+
+.deepavali-lantern .lantern-bottom {
+  width: 100%;
+  height: 18%;
+  background-color: #f59e0b;
+  border-radius: 0 0 10px 10px;
+  border-top: 2px solid #b45309;
+}
+
+/* Lantern sway animation */
+@keyframes sway {
+  0%, 100% {
+    transform: rotate(-6deg);
+  }
+  50% {
+    transform: rotate(6deg);
+  }
+}
+/* Sparkles */
+.sparkle {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background: #fef9c3;
+  border-radius: 50%;
+  animation: sparkle 2s infinite ease-in-out;
+}
+
+.sparkle-1 { top: 30%; left: 20%; animation-delay: 0s; }
+.sparkle-2 { top: 50%; left: 70%; animation-delay: 0.5s; }
+.sparkle-3 { top: 20%; left: 50%; animation-delay: 1s; }
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0; transform: scale(0.5); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+
+/* Fireworks (brighter, glowing) */
+.firework {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  opacity: 0;
+  z-index: 15;
+  animation: firework-burst 2s infinite ease-out;
+}
+
+.firework-1 {
+  top: 18%;
+  left: 25%;
+  animation-delay: 0s;
+}
+.firework-2 {
+  top: 12%;
+  right: 25%;
+  animation-delay: 0.8s;
+}
+.firework-3 {
+  top: 10%;
+  left: 60%;
+  animation-delay: 1.6s;
+}
+
+@keyframes firework-burst {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+    background: #fff;
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+  }
+  30% {
+    transform: scale(1.2);
+    opacity: 1;
+    background: radial-gradient(circle, #ff0 10%, #ff4500 50%, #ff1493 90%);
+    box-shadow: 0 0 25px 10px rgba(255, 200, 0, 1);
+  }
+  60% {
+    transform: scale(1.5);
+    opacity: 0.9;
+    background: radial-gradient(circle, #ff4500, #ff0, #ff69b4);
+    box-shadow: 0 0 30px 15px rgba(255, 100, 0, 0.9);
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+    box-shadow: none;
+  }
+}
+
+
+
+
 
 /* =============== CHINESE NEW YEAR ELEMENTS =============== */
 .lantern {
