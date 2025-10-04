@@ -1,7 +1,6 @@
 // Get DOM elements
 const card = document.querySelector(".card");
 const cardFront = document.querySelector(".card-front");
-const updateButton = document.getElementById("update-card");
 const recipientNameInput = document.getElementById("recipient-name");
 const messageTextInput = document.getElementById("message-text");
 const occasionSelect = document.getElementById("occasion-select");
@@ -143,22 +142,6 @@ closeButton.addEventListener("click", function () {
   card.classList.remove("open");
 });
 
-// Update card with custom content (kept for backwards compatibility)
-updateButton.addEventListener("click", function () {
-  // Trigger input events to update the card
-  recipientNameInput.dispatchEvent(new Event("input"));
-  messageTextInput.dispatchEvent(new Event("input"));
-  
-  // Show a brief confirmation
-  const originalText = updateButton.textContent;
-  updateButton.textContent = "Updated!";
-  updateButton.style.backgroundColor = "#4caf50";
-  
-  setTimeout(() => {
-    updateButton.textContent = originalText;
-    updateButton.style.backgroundColor = "#ff6b6b";
-  }, 1000);
-});
 
 // Share card functionality
 shareButton.addEventListener("click", function () {

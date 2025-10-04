@@ -752,17 +752,6 @@ body {
   font-size: 1rem;
 }
 
-#update-card {
-  background-color: #ff6b6b;
-  color: white;
-}
-
-#update-card:hover {
-  background-color: #ff5252;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
-}
-
 #share-card {
   background-color: #4caf50;
   color: white;
