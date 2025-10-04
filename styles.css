@@ -109,7 +109,7 @@ body {
 }
 
 .card.deepavali-theme .card-front {
-  background: linear-gradient(45deg, #EC6535 0%, #DD4400 50%, #F3DD43 100%);
+  background: linear-gradient(45deg, #DD4400 0%, #EC6535 50%, #F3DD43 100%);
 }
 
 .card.cny-theme .card-front {
