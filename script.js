@@ -2,7 +2,6 @@
 const card = document.querySelector(".card");
 const cardFront = document.querySelector(".card-front");
 const updateButton = document.getElementById("update-card");
-const downloadButton = document.getElementById("download-card");
 const recipientNameInput = document.getElementById("recipient-name");
 const messageTextInput = document.getElementById("message-text");
 const occasionSelect = document.getElementById("occasion-select");
@@ -12,6 +11,12 @@ const confettiContainer = document.querySelector(".confetti-container");
 const closeButton = document.querySelector(".close-button");
 const frontTitle = document.querySelector(".front-title");
 const frontSubtitle = document.querySelector(".front-subtitle");
+
+// Share card elements
+const shareButton = document.getElementById("share-card");
+const shareLinkContainer = document.getElementById("share-link-container");
+const shareLinkInput = document.getElementById("share-link");
+const copyLinkButton = document.getElementById("copy-link");
 
 // Occasion configurations
 const occasions = {
@@ -100,6 +105,33 @@ occasionSelect.addEventListener("change", function () {
   updateOccasion(this.value);
 });
 
+// Real-time update for recipient name
+recipientNameInput.addEventListener("input", function () {
+  const recipientName = this.value.trim();
+  const config = occasions[currentOccasion];
+
+  if (recipientName) {
+    insideTitle.textContent = config.insideTitle.replace(
+      "!",
+      `, ${recipientName}!`
+    );
+  } else {
+    insideTitle.textContent = config.insideTitle;
+  }
+});
+
+// Real-time update for custom message
+messageTextInput.addEventListener("input", function () {
+  const customMessage = this.value.trim();
+  const config = occasions[currentOccasion];
+
+  if (customMessage) {
+    message.textContent = customMessage;
+  } else {
+    message.textContent = config.defaultMessage;
+  }
+});
+
 // Flip card when clicking on front
 cardFront.addEventListener("click", function () {
   card.classList.add("open");
@@ -111,81 +143,105 @@ closeButton.addEventListener("click", function () {
   card.classList.remove("open");
 });
 
-// Update card with custom content
+// Update card with custom content (kept for backwards compatibility)
 updateButton.addEventListener("click", function () {
+  // Trigger input events to update the card
+  recipientNameInput.dispatchEvent(new Event("input"));
+  messageTextInput.dispatchEvent(new Event("input"));
+  
+  // Show a brief confirmation
+  const originalText = updateButton.textContent;
+  updateButton.textContent = "Updated!";
+  updateButton.style.backgroundColor = "#4caf50";
+  
+  setTimeout(() => {
+    updateButton.textContent = originalText;
+    updateButton.style.backgroundColor = "#ff6b6b";
+  }, 1000);
+});
+
+// Share card functionality
+shareButton.addEventListener("click", function () {
   const recipientName = recipientNameInput.value.trim();
   const customMessage = messageTextInput.value.trim();
-  const config = occasions[currentOccasion];
 
-  // Update title with recipient name
-  if (recipientName) {
-    insideTitle.textContent = config.insideTitle.replace(
-      "!",
-      `, ${recipientName}!`
-    );
-  } else {
-    insideTitle.textContent = config.insideTitle;
-  }
+  // Create URL parameters
+  const params = new URLSearchParams();
+  params.set("occasion", currentOccasion);
+  params.set("view", "card"); // Add view parameter to show only card
+  if (recipientName) params.set("name", recipientName);
+  if (customMessage) params.set("message", customMessage);
 
-  // Update message
-  if (customMessage) {
-    message.textContent = customMessage;
-  } else {
-    message.textContent = config.defaultMessage;
-  }
+  // Generate the shareable URL
+  const shareUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+  
+  shareLinkInput.value = shareUrl;
+  shareLinkContainer.style.display = "flex";
 });
 
-// Download the currently visible face
-downloadButton.addEventListener("click", function () {
-  const wasOpen = card.classList.contains("open");
-  const target = wasOpen
-    ? document.querySelector(".card-inside")
-    : document.querySelector(".card-front");
-
-  const rect = target.getBoundingClientRect();
-  const clone = target.cloneNode(true);
-  clone.classList.add("capture-clone");
-
-  clone.style.position = "fixed";
-  clone.style.top = "0";
-  clone.style.left = "-9999px";
-  clone.style.width = rect.width + "px";
-  clone.style.height = rect.height + "px";
-  clone.style.transform = "none";
-  clone.style.boxShadow = "none";
-  clone.style.zIndex = "99999";
-
-  const closeBtn = clone.querySelector(".close-button");
-  if (closeBtn) closeBtn.style.display = "none";
-
-  document.body.appendChild(clone);
-
+// Copy link to clipboard
+copyLinkButton.addEventListener("click", function () {
+  shareLinkInput.select();
+  document.execCommand("copy");
+  
+  // Visual feedback
+  const originalText = copyLinkButton.textContent;
+  copyLinkButton.textContent = "Copied!";
+  copyLinkButton.style.backgroundColor = "#4caf50";
+  
   setTimeout(() => {
-    html2canvas(clone, {
-      backgroundColor: "#ffffff",
-      scale: 2,
-    })
-      .then((canvas) => {
-        const link = document.createElement("a");
-        link.download = `${currentOccasion}-card.png`;
-        link.href = canvas.toDataURL("image/png");
-        link.click();
-      })
-      .catch((err) => {
-        console.error("html2canvas error:", err);
-        alert("Failed to create image – check console for details.");
-      })
-      .finally(() => {
-        clone.remove();
-      });
-  }, 50);
+    copyLinkButton.textContent = originalText;
+    copyLinkButton.style.backgroundColor = "#2196F3";
+  }, 2000);
 });
+
+// Load card data from URL on page load
+function loadFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  
+  // Check if this is a shared card view
+  if (params.has("view") && params.get("view") === "card") {
+    // Hide the customizer container
+    const customizerContainer = document.querySelector(".customizer-container");
+    if (customizerContainer) {
+      customizerContainer.style.display = "none";
+    }
+    
+    // Make card container full width
+    const cardContainer = document.querySelector(".card-container");
+    if (cardContainer) {
+      cardContainer.style.width = "100%";
+      cardContainer.style.maxWidth = "800px";
+      cardContainer.style.margin = "0 auto";
+    }
+  }
+  
+  if (params.has("occasion")) {
+    const occasion = params.get("occasion");
+    if (occasions[occasion]) {
+      occasionSelect.value = occasion;
+      updateOccasion(occasion);
+    }
+  }
+  
+  if (params.has("name")) {
+    const name = params.get("name");
+    recipientNameInput.value = name;
+    const config = occasions[currentOccasion];
+    insideTitle.textContent = config.insideTitle.replace("!", `, ${name}!`);
+  }
+  
+  if (params.has("message")) {
+    const customMessage = params.get("message");
+    messageTextInput.value = customMessage;
+    message.textContent = customMessage;
+  }
+}
 
 // Create confetti animation
 function createConfetti() {
   confettiContainer.innerHTML = "";
 
-  // Different confetti colors based on occasion
   let colors;
   switch (currentOccasion) {
     case "christmas":
@@ -279,3 +335,4 @@ document.addEventListener("click", function (e) {
 
 // Initialize card on load
 initializeCard();
+loadFromURL();
